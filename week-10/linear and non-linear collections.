@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Product {
+    int id;
+    String name;
+    double price;
+
+    Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String toString() {
+        return id + " " + name + " " + price;
+    }
+}
+
+class Order {
+    int orderId;
+    int priority;
+
+    Order(int orderId, int priority) {
+        this.orderId = orderId;
+        this.priority = priority;
+    }
+}
+
+public class ShoppingSystem {
+
+    ArrayList<Product> products = new ArrayList<>();
+    HashMap<Integer, Product> productMap = new HashMap<>();
+
+    PriorityQueue<Order> orderQueue =
+        new PriorityQueue<>((a, b) -> b.priority - a.priority);
+
+    void addProduct(Product p) {
+        products.add(p);
+        productMap.put(p.id, p);
+    }
+
+    Product searchProduct(int id) {
+        return productMap.get(id);
+    }
+
+    void addOrder(Order order) {
+        orderQueue.add(order);
+    }
+
+    Order processOrder() {
+        return orderQueue.poll();
+    }
+}
